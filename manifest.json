@@ -1,0 +1,9 @@
+{
+    "name": "SkipCharSelect",
+    "description": "Don't character selection screen",
+    "version_number": "1.0.0",
+    "dependencies": [
+      "BepInEx-BepInExPack_TromboneChamp-5.4.21"
+    ],
+    "website_url": "https://github.com/emmett-shark/SkipCharSelect/"
+  }
