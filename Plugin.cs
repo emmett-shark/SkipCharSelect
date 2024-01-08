@@ -4,16 +4,20 @@ using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using BepInEx.Configuration;
 
 namespace SkipCharSelect;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
+    public static ConfigEntry<bool> enableButtons;
+
     private void Awake()
     {
         Instance = this;
         Log = Logger;
+        enableButtons = Config.Bind("Default", "EnableButtons", true, "Enable buttons to access the char select screen.");
         new Harmony(PluginInfo.PLUGIN_GUID).PatchAll();
     }
 
@@ -64,6 +68,8 @@ public class Plugin : BaseUnityPlugin
                 Object.DontDestroyOnLoad(btnPrefab);
             }
 
+            if (!enableButtons.Value) return;
+
             var btnGameObject = GameObject.Instantiate(btnPrefab, __instance.fullcanvas.transform);
             var btn = btnGameObject.GetComponent<Button>();
             btn.onClick.AddListener(delegate
@@ -85,9 +91,12 @@ public class Plugin : BaseUnityPlugin
             loadCharScene = false;
         }
 
-        [HarmonyPatch(nameof(LevelSelectController.Start))]
+        //Button in the level select screen kinda bad so I removed it
+        /*[HarmonyPatch(nameof(LevelSelectController.Start))]
         public static void Postfix(LevelSelectController __instance)
         {
+            if (!enableButtons.Value) return;
+
             var btnGameObject = GameObject.Instantiate(btnPrefab, __instance.fullpanel.transform);
             var btn = btnGameObject.GetComponent<Button>();
             btn.transform.localScale = Vector2.one * .42f;
@@ -99,6 +108,6 @@ public class Plugin : BaseUnityPlugin
                 loadCharScene = true;
                 __instance.clickBack();
             });
-        }
+        }*/
     }
 }
