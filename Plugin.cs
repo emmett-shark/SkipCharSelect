@@ -32,11 +32,18 @@ public class Plugin : BaseUnityPlugin
         [HarmonyPatch(nameof(HomeController.loadscene))]
         public static bool Prefix(HomeController __instance)
         {
+            LeanTween.cancelAll();
             if (__instance.loadsceneindex == 0 && !loadCharScene)
             {
-                LeanTween.cancelAll();
                 GlobalVariables.scene_destination = "levelselect";
                 SceneManager.LoadScene("levelselect");
+                return false;
+            }
+            if (__instance.loadsceneindex == 4 && !loadCharScene)
+            {
+                GlobalVariables.scene_destination = "freeplay";
+                GlobalVariables.chosen_track = "freeplay";
+                SceneManager.LoadScene("gameplay");
                 return false;
             }
             loadCharScene = false;

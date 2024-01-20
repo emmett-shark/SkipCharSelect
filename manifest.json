@@ -1,7 +1,7 @@
 {
     "name": "SkipCharSelect",
     "description": "Don't character selection screen",
-    "version_number": "1.0.1",
+    "version_number": "1.0.2",
     "dependencies": [
       "BepInEx-BepInExPack_TromboneChamp-5.4.21"
     ],
