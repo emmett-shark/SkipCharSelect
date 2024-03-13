@@ -5,6 +5,9 @@ Skip the character select screen
 Install this from r2modman https://trombone-champ.thunderstore.io/package/emmett/SkipCharSelect/
 
 ## Changelog
+v1.0.3
+- Delete localization for TC 1.20
+
 v1.0.2
 - Skip char select on freeplay
 
